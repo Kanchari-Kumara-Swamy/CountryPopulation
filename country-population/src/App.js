@@ -1,10 +1,10 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import NavBar from "./Components/NavBar/NavBar";
 
 function App() {
   return (
     <div className="App">
-      Country Population
+      <NavBar />
     </div>
   );
 }
