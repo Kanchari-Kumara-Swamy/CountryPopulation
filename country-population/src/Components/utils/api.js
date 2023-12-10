@@ -1,0 +1,1 @@
+export const apiUrl = 'https://world-population3.p.rapidapi.com/continents/asia?rank=1';
