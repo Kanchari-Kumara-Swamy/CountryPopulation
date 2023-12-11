@@ -1,28 +1,29 @@
-import Card from 'react-bootstrap/Card';
+import Card from "react-bootstrap/Card";
 
-function InfoCard() {
+function InfoCard({ countries }) {
   return (
     <>
-      {[
-        'Info',
-      ].map((variant) => (
-        <Card
-          bg={variant.toLowerCase()}
-          key={variant}
-          text={variant.toLowerCase() === 'light' ? 'dark' : 'white'}
-          style={{ width: '18rem' }}
-          className="mb-2"
-        >
-          <Card.Header>Header</Card.Header>
-          <Card.Body>
-            <Card.Title>{variant} Card Title </Card.Title>
-            <Card.Text>
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
-            </Card.Text>
-          </Card.Body>
-        </Card>
-      ))}
+      {
+        countries ? (
+          countries.map((country, index) => {
+            <Card
+              bg={"dark"}
+              text={"white"}
+              style={{ width: "18rem" }}
+              className="mb-2"
+              key={index}
+            >
+              <Card.Header>{country.name}</Card.Header>
+              <Card.Body>
+                <Card.Title>{country.currencyCodes} </Card.Title>
+                <Card.Text>
+                  {country.code}
+                </Card.Text>
+              </Card.Body>
+            </Card>;
+          })
+        ): "Not Found"
+      }
     </>
   );
 }
