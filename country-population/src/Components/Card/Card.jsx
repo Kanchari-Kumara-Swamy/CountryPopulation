@@ -1,31 +1,21 @@
-import Card from "react-bootstrap/Card";
 
-function InfoCard({ countries }) {
+import React from 'react'
+import "../../App.css"
+/**
+ * 
+ * @param {array} props movies
+ * @returns 
+ */
+const MovieCard = (props) => {
   return (
     <>
-      {
-        countries ? (
-          countries.map((country, index) => {
-            <Card
-              bg={"dark"}
-              text={"white"}
-              style={{ width: "18rem" }}
-              className="mb-2"
-              key={index}
-            >
-              <Card.Header>{country.name}</Card.Header>
-              <Card.Body>
-                <Card.Title>{country.currencyCodes} </Card.Title>
-                <Card.Text>
-                  {country.code}
-                </Card.Text>
-              </Card.Body>
-            </Card>;
-          })
-        ): "Not Found"
-      }
+      {props.movies.map((movie,index)=>(
+        <div className='movies'>
+          <img src={movie.Poster}></img>
+        </div>
+      ))}
     </>
-  );
+  )
 }
 
-export default InfoCard;
+export default MovieCard;

@@ -1,43 +1,55 @@
 import React, { useEffect, useState } from "react";
-import InfoCard from "../Components/Card/Card";
-import { getCountryData } from "../Components/utils/api";
-import axios from 'axios';
+import MovieCard from "../Components/Card/Card";
+import SearchBox from "../Components/SearchBox/SearchBox";
+import '../../src/App.css'
 const Home = () => {
-  const [country, setCountry] = useState([]);
+  // const [movies, setMovies] = useState([
 
-  useEffect(() => {
-    const interval = setInterval(getCountryData, 1000); // 1000 ms = 1 second
-    return () => clearInterval(interval);
- }, []);
+  // ]);
 
-  const url = 'https://wft-geo-db.p.rapidapi.com/v1/geo/countries'
-  const options = {
-    params: {limit: '5'},
-    headers: {
-      'X-RapidAPI-Key': '617512f68cmsh04b6a15e6d2f14bp16eb70jsnf2fbb085b090',
-      'X-RapidAPI-Host': 'wft-geo-db.p.rapidapi.com'
-    }
-  };
+  // const getCountryData = async ()=>{
+  //   const url = 'http://www.omdbapi.com/?s=star wars&apikey=6bb931fb'
+  //   const response = await fetch(url);
+  //   const responseJson =  await response.json();
+  //   console.log(responseJson);
+  //   setMovies(responseJson.Search);
+  // }
 
-  const getCountryData = async ()=>{
-    try{
-        const {data: { data }} = await axios.get(url, options);
-        return data;
-        setCountry(data);
-    }catch (error){
-        console.log(error)
-    }
-}
+  // useEffect(()=>{
+  //   getCountryData();
+  // },[]);
+  
+  const [movies, setMovies] = useState([]);
+  const [search, setSearch] = useState('avengers')
+
+  console.log(search);
+
+ async function getMovies (search) {
+  const url = `http://www.omdbapi.com/?s=${search}&apikey=6bb931fb`;
+
+  const response = await fetch(url);
+  const responseJson = await response.json();
+  console.log(responseJson);
+  if(responseJson.Search){
+    setMovies(responseJson.Search)
+  }
+ }
+
+ useEffect(()=>{
+  getMovies(search);
+ },[search])
+
+  
 
 
   return (
-    <div>
-    {country.length === 0 ? (
-      <p>Loading...</p>
-    ) : (
-      <InfoCard countries={country} />
-    )}
-      
+    <div className="container-fluid">
+      <div className="row d-flex align-items-center mt-4 mb-4">
+        <SearchBox search={search} setSearch={setSearch}/>
+      </div>
+      <div className="row flex-row flex-nowrap overflow-auto ">
+        <MovieCard movies={movies}/>
+      </div>     
     </div>
   );
 };
