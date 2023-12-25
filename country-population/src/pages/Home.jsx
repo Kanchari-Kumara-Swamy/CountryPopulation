@@ -30,8 +30,10 @@ const Home = () => {
   const response = await fetch(url);
   const responseJson = await response.json();
   console.log(responseJson);
+  
   if(responseJson.Search){
     setMovies(responseJson.Search)
+    console.log(responseJson.Search)
   }
  }
 
@@ -47,7 +49,7 @@ const Home = () => {
       <div className="row d-flex align-items-center mt-4 mb-4">
         <SearchBox search={search} setSearch={setSearch}/>
       </div>
-      <div className="row flex-row flex-nowrap overflow-auto ">
+      <div className="row flex-row flex-nowrap overflow-auto sm-col">
         <MovieCard movies={movies}/>
       </div>     
     </div>
